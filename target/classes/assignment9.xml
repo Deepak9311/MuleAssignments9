@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ftp="http://www.mulesoft.org/schema/mule/ftp" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+        xmlns:spring="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/ftp http://www.mulesoft.org/schema/mule/ee/ftp/current/mule-ftp-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/current/mule-ftp.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"></http:listener-config>
+    <ftp:connector name="FTP" pollingFrequency="1000" validateConnections="true" doc:name="FTP"></ftp:connector>
+    <file:connector name="File" autoDelete="false" streaming="false" validateConnections="true" doc:name="File" outputAppend="true"></file:connector>
+    <json:xml-to-json-transformer name="XML_to_JSON" doc:name="XML to JSON"></json:xml-to-json-transformer>
+    <flow name="scope-Flow"> 
+        <composite-source doc:name="Composite Source"> 
+            <file:inbound-endpoint path="C:\Users\Aakash A Talreja\Documents\Deepak\XML" connector-ref="File" responseTimeout="10000" transformer-refs="XML_to_JSON" doc:name="File"> 
+                <file:filename-regex-filter pattern=".*xml" caseSensitive="false"></file:filename-regex-filter>  
+            </file:inbound-endpoint>  
+            <file:inbound-endpoint path="C:\Users\Aakash A Talreja\Documents\Deepak\Json" connector-ref="File" responseTimeout="10000" transformer-refs="XML_to_JSON" doc:name="File"> 
+                <file:filename-regex-filter pattern=".*xml" caseSensitive="false"></file:filename-regex-filter>  
+            </file:inbound-endpoint>  
+        </composite-source>  
+        <file:outbound-endpoint path="C:\Users\Aakash A Talreja\Documents\Deepak\New folder" connector-ref="File" responseTimeout="10000" doc:name="File" outputPattern="OutPut.json"></file:outbound-endpoint>  
+        <logger level="INFO" doc:name="Logger"></logger>  
+    </flow>
+</mule>

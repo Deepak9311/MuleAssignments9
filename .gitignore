@@ -1,0 +1,12 @@
+[master (root-commit) 1c12f7d] initial commit
+10 files changed, 425 insertions(+)
+create mode 100644 .gitignore
+create mode 100644 README.md
+create mode 100644 pom.xml
+create mode 100644 src/main/app/maven-project.xml
+create mode 100644 src/main/app/mule-app.properties
+create mode 100644 src/main/app/mule-deploy.properties
+create mode 100644 src/main/java/com/mulesoft/training/Database.java
+create mode 100644 src/main/resources/log4j2.xml
+create mode 100644 src/test/java/com/mulesoft/training/HelloMavenTest.java
+create mode 100644 src/test/resources/log4j2-test.xml
